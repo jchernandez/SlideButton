@@ -5,6 +5,10 @@
 
 SlideButton is a button that needs a swipe-gesture to confirm an action. Just like a `Slide to unlock`.
 
+<div align="center">
+  <img src="raw/screen.png"/>
+</div>
+
 ## Usage
 Simply add the View to your layout:
 ```xml
@@ -25,7 +29,7 @@ slideButton.setText("Slide to unlock");
 slideButton.setBackgroundResource(R.drawable.back_slide_button);
 ```
 
-#### Listener
+#### Listeners
 
 Create a `SlideButtonListener` to callback when the user has finish the Slide gesture.
 
@@ -33,12 +37,22 @@ Create a `SlideButtonListener` to callback when the user has finish the Slide ge
 SlideButton slideButton = new SlideButton(getContext());
 slideButton.setSlideButtonListener(new SlideButton.SlideButtonListener() {
     @Override
-    public void handleSlide() {
+    public void onSlide() {
         Toast.makeText(getContext(),"Unlocked",Toast.LENGTH_SHORT).show();
     }
 });
 ```
 
+Create a `OnSlideChangeListener` to callback on slide change.
+
+```java
+slideButton.setOnSlideChangeListener(new SlideButton.OnSlideChangeListener() {
+    @Override
+    public void onSlideChange(float position) {
+        textView.setText("Progress: "+position);
+    }
+});
+```
 
 # Gradle Dependency
 
@@ -57,7 +71,7 @@ allprojects {
 
  Add the dependency:
 ```gradle
-    dependencies {
-	    compile 'com.github.jchernandez:SlideButton:0.1'
-    }
+dependencies {
+    compile 'com.github.jchernandez:SlideButton:0.1'
+}
 ```

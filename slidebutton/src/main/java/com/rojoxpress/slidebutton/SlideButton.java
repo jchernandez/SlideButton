@@ -3,11 +3,8 @@ package com.rojoxpress.slidebutton;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ScaleDrawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -19,6 +16,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class SlideButton extends FrameLayout {
@@ -26,7 +24,8 @@ public class SlideButton extends FrameLayout {
     private TextView textView;
     private SlideBar slideBar;
     private SlideButtonListener listener;
-    private int offestThumb;
+    private OnSlideChangeListener slideChangeListener;
+    private int offsetThumb;
 
     public SlideButton(Context context) {
         super(context);
@@ -60,7 +59,7 @@ public class SlideButton extends FrameLayout {
     public void init(@Nullable AttributeSet set){
 
 
-        offestThumb = dpToPixels(16);
+        offsetThumb = dpToPixels(16);
         textView = new TextView(getContext());
         slideBar = new SlideBar(getContext());
 
@@ -94,7 +93,7 @@ public class SlideButton extends FrameLayout {
 
             if(a.hasValue(R.styleable.slider_button_thumbOffset)){
                 int offset = a.getDimensionPixelSize(R.styleable.slider_button_thumbOffset,dpToPixels(10));
-                offestThumb += offset;
+                offsetThumb += offset;
             }
 
             if(a.hasValue(R.styleable.slider_button_sliderBackground)){
@@ -113,7 +112,7 @@ public class SlideButton extends FrameLayout {
             a.recycle();
         }
 
-        setThumbOffset(offestThumb);
+        setThumbOffset(offsetThumb);
 
         /*post(new Runnable() {
             @Override
@@ -151,21 +150,46 @@ public class SlideButton extends FrameLayout {
         slideBar.setThumbOffset(offset);
     }
 
+    public void setOnSlideChangeListener(OnSlideChangeListener slideChangeListener) {
+        this.slideChangeListener = slideChangeListener;
+    }
 
 
     protected class SlideBar extends AppCompatSeekBar {
 
         private Drawable thumb;
+
+        private OnSeekBarChangeListener seekBarChangeListener = new OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                onSlideChange(((float) i/getMax()));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        };
+
         public SlideBar(Context context) {
             super(context);
+            init();
         }
+
 
         public SlideBar(Context context, AttributeSet attrs, int defStyleAttr) {
             super(context, attrs, defStyleAttr);
+            init();
         }
 
         public SlideBar(Context context, AttributeSet attrs) {
             super(context, attrs);
+            init();
         }
 
         @Override
@@ -173,6 +197,15 @@ public class SlideButton extends FrameLayout {
             super.setThumb(thumb);
             this.thumb = thumb;
         }
+
+
+
+        public void init(){
+            setMax(100);
+            setOnSeekBarChangeListener(seekBarChangeListener);
+        }
+
+
 
         @Override
         public boolean onTouchEvent(MotionEvent event) {
@@ -182,8 +215,8 @@ public class SlideButton extends FrameLayout {
                 } else
                     return false;
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (getProgress() > 70)
-                    handleSlide();
+                if (getProgress() > 90)
+                    onSlide();
 
                 setProgress(0);
             } else
@@ -192,9 +225,15 @@ public class SlideButton extends FrameLayout {
             return true;
         }
 
-        private void handleSlide() {
+        private void onSlide() {
             if(listener != null) {
-                listener.handleSlide();
+                listener.onSlide();
+            }
+        }
+
+        private void onSlideChange(float position) {
+            if(slideChangeListener != null) {
+                slideChangeListener.onSlideChange(position);
             }
         }
 
@@ -205,7 +244,10 @@ public class SlideButton extends FrameLayout {
     }
 
     public interface SlideButtonListener {
-        public void handleSlide();
+        public void onSlide();
+    }
+    public interface OnSlideChangeListener {
+        public void onSlideChange(float position);
     }
 
 }
