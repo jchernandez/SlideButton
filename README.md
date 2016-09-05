@@ -73,6 +73,6 @@ allprojects {
  Add the dependency:
 ```gradle
 dependencies {
-    compile 'com.github.jchernandez:SlideButton:0.1'
+    compile 'com.github.jchernandez:SlideButton:0.1.1'
 }
 ```
