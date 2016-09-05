@@ -1,6 +1,7 @@
 # Slide Button
 
 [![](https://jitpack.io/v/jchernandez/SlideButton.svg)](https://jitpack.io/#jchernandez/SlideButton)
+
 ## What is a SlideButton?
 
 SlideButton is a button that needs a swipe-gesture to confirm an action. Just like a `Slide to unlock`.
