@@ -6,7 +6,7 @@
 SlideButton is a button that needs a swipe-gesture to confirm an action. Just like a `Slide to unlock`.
 
 <div align="center">
-  <img src="raw/screen.png"/>
+  <img height="355" src="raw/screen.png"/>
 </div>
 
 ## Usage
