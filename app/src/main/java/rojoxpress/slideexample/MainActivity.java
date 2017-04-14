@@ -2,6 +2,8 @@ package rojoxpress.slideexample;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final TextView textView = (TextView) findViewById(R.id.progress);
-        SlideButton slideButton = (SlideButton) findViewById(R.id.slide_button);
+        final SlideButton slideButton = (SlideButton) findViewById(R.id.slide_button);
+        SwitchCompat switchCompat = (SwitchCompat) findViewById(R.id.switch_);
 
         slideButton.setSlideButtonListener(new SlideButton.SlideButtonListener() {
             @Override
@@ -27,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSlideChange(float position) {
                 textView.setText("Progress: "+position);
+            }
+        });
+
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                slideButton.setEnabled(b);
             }
         });
     }

@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -154,6 +155,22 @@ public class SlideButton extends FrameLayout {
         this.slideChangeListener = slideChangeListener;
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        slideBar.setEnabled(enabled);
+        textView.setEnabled(enabled);
+        int color = 0;
+        if(!enabled) {
+           color = ContextCompat.getColor(getContext(), R.color.disabled_filter);
+            textView.setVisibility(GONE);
+        } else {
+            textView.setVisibility(VISIBLE);
+        }
+        slideBar.getThumb().setColorFilter(color, PorterDuff.Mode.XOR);
+
+    }
+
 
     protected class SlideBar extends AppCompatSeekBar {
 
@@ -198,7 +215,10 @@ public class SlideButton extends FrameLayout {
             this.thumb = thumb;
         }
 
-
+        @Override
+        public Drawable getThumb() {
+            return thumb;
+        }
 
         public void init(){
             setMax(100);
