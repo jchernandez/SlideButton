@@ -28,7 +28,7 @@ open class SlideButton: FrameLayout {
 
     private var textView: TextView? = null
     private var slideBar: SlideBar? = null
-    private var listener: SlideButtonListener? = null
+    private var onSlideListener: (()-> Unit)? = null
     private var slideChangeListener: OnSlideChangeListener? = null
     private var offsetThumb = 0
 
@@ -187,8 +187,9 @@ open class SlideButton: FrameLayout {
         }
 
         private fun onSlide() {
-            listener?.onSlide()
-
+            onSlideListener?.apply {
+                this()
+            }
         }
 
         private fun onSlideChange(position: Float) {
@@ -196,9 +197,13 @@ open class SlideButton: FrameLayout {
 
         }
     }
+    @Deprecated("use setOnSlideListener instead")
+    open fun setSlideButtonListener(onSlideListener: (()->Unit)?) {
+        this.onSlideListener = onSlideListener
+    }
 
-    open fun setSlideButtonListener(listener: SlideButtonListener?) {
-        this.listener = listener
+    open fun setOnSlideListener(onSlideListener: (()->Unit)?) {
+        this.onSlideListener = onSlideListener
     }
 
     interface SlideButtonListener {

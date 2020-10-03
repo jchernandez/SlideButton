@@ -19,11 +19,9 @@ open class MainActivity: AppCompatActivity() {
         val slideButton = findViewById<View>(R.id.slide_button) as SlideButton
         val switchCompat = findViewById<View>(R.id.switch_) as SwitchCompat
 
-        slideButton.setSlideButtonListener(object : SlideButtonListener {
-            override fun onSlide() {
-                Toast.makeText(this@MainActivity, "UNLOCKED", Toast.LENGTH_SHORT).show()
-            }
-        })
+        slideButton.setOnSlideListener {
+            Toast.makeText(this@MainActivity, "UNLOCKED", Toast.LENGTH_SHORT).show()
+        }
 
         slideButton.setOnSlideChangeListener(object : OnSlideChangeListener {
             override fun onSlideChange(position: Float) {
