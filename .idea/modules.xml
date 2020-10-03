@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SlideButton.iml" filepath="$PROJECT_DIR$/.idea/modules/SlideButton.iml" group="SlideButton" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SlideButton-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SlideButton-app.iml" group="SlideButton/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/slidebutton/SlideButton-slidebutton.iml" filepath="$PROJECT_DIR$/.idea/modules/slidebutton/SlideButton-slidebutton.iml" group="SlideButton/slidebutton" />
       <module fileurl="file://$PROJECT_DIR$/SlideExample.iml" filepath="$PROJECT_DIR$/SlideExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/slidebutton/slidebutton.iml" filepath="$PROJECT_DIR$/slidebutton/slidebutton.iml" />

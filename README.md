@@ -16,7 +16,7 @@ Simply add the View to your layout:
 <com.rojoxpress.slidebutton.SlideButton
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@drawable/back_slide_button"
+    app:sliderBackground="@drawable/back_slide_button"
     app:thumb="@drawable/seekbar_thumb"
     app:text="@string/slide_to_pay"
     android:id="@+id/slide_button"/>
